@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,  min-width=600px,  initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <title> Budget</title>
+    <link href="laptop-1478822_960_720.jpg" rel="icon">
+    <style>
+        .cssSty {
+            height: 300px;
+            background-image: url('laptop-1478822_960_720.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .flex1 {
+            position: absolute;
+            width: 30%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: auto;
+            color: rgb(7, 6, 6);
+        }
+        
+        .budget {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 300;
+            text-decoration-color: red;
+            height: 30px;
+        }
+        
+        .budget__value {
+            font-weight: 300;
+            font-size: 46px;
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            height: 40px;
+        }
+        
+        .b1 {
+            background-color: rgb(240, 56, 24);
+            margin: 10px;
+            padding: 10px;
+            border-radius: 20px;
+            opacity: 0.9;
+            font-size: 25px;
+        }
+        
+        .b2 {
+            background-color: rgb(80, 80, 233);
+            margin: 10px;
+            padding: 10px;
+            border-radius: 20px;
+            opacity: 0.9;
+            font-size: 25px;
+        }
+        
+        .cont2 {
+            width: 100%;
+            height: 800px;
+            background-color: #faf3f3;
+        }
+        
+        .inside {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .inside2 {
+            align-content: center;
+            align-items: center;
+            text-align: -webkit-center;
+        }
+        
+        .add__description {
+            padding: 10px 10px;
+            border-radius: 20px
+        }
+        
+        .number {
+            padding: 10px 10px;
+            border-radius: 20px
+        }
+        
+        .income {
+            width: 50%;
+            float: left;
+            border-right: black;
+        }
+        
+        .expenses {
+            float: right;
+            width: 50%;
+        }
+        
+        table {
+            align-items: center;
+            border-color: black;
+            border-collapse: separate;
+            border-spacing: 15px;
+            border-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cssSty">
+        <div class="flex1">
+            <div class="budget">
+                <h1>BUDGET 2020:</h1>
+            </div>
+            <h2>
+                <div class="budget__value" id="totalBudget"> </div>
+            </h2>
+            <div class="a1">
+                <div class="b1">
+                    Income:<span id="totalIncome"></span></div>
+                <div class="b2">
+                    Expenses: <span id="totalExpenses"></span></div>
+            </div>
+        </div>
+    </div>
+    <div class="cont2">
+        <div class="inside">
+            <select id="selectedId" class=" btn btn-success">
+				  <option value="income" selected>+</option>
+				  <option value="expense">-</option>
+				</select>
+            <input type="text" id="productNameId" class="add__description" placeholder="Add description">
+            <input type="number" id="productCostId" class="number" placeholder="value">
+            <button class=" btn btn-success" onclick="addToArray()">Add to array</button>
+        </div>
+        <hr>
+        <div class="inside2">
+            <div class='income'>
+                <h1>Income</h1>
+                <table>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Product Cost</th>
+                    </tr>
+                </table>
+                <table id="incomeTable">
+
+                </table>
+
+            </div>
+
+            <div class='expenses'>
+                <h1>Expenses</h1>
+            </div>
+            <table>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Cost</th>
+                </tr>
+            </table>
+            <table id="expensesTable">
+
+            </table>
+        </div>
+    </div>
+    <script>
+        var incomeArray = [];
+        var expensesArray = [];
+
+
+        function addToArray() {
+            var objectToPush = {
+                'productName': document.getElementById('productNameId').value,
+                'productCost': document.getElementById('productCostId').value
+            }
+
+            if (document.getElementById('selectedId').value == 'income') {
+                document.getElementById("incomeTable").innerHTML = "";
+                incomeArray.push(objectToPush);
+                incomeArray.forEach(iterateFun);
+                var x = incomeArray.reduce(getTotal, 0);
+                document.getElementById("totalIncome").innerHTML = x;
+                getBudget();
+            } else {
+                document.getElementById("expensesTable").innerHTML = "";
+                expensesArray.push(objectToPush);
+                expensesArray.forEach(iterateFun);
+                var y = expensesArray.reduce(getTotal, 0);
+                document.getElementById("totalExpenses").innerHTML = y;
+                getBudget();
+            }
+        }
+
+        function iterateFun(value, index) {
+            if (document.getElementById('selectedId').value == 'income') {
+                document.getElementById("incomeTable").innerHTML += "<table><tr><td>" + value.productName + "</td> <td>" + value.productCost + "</td></tr> </table>"
+            } else {
+                document.getElementById("expensesTable").innerHTML += " <table><tr><td>" + value.productName + "</td><td>" + value.productCost + "</td></tr> <table>"
+            }
+        }
+
+        function getTotal(total, item) {
+            return total = total + Number(item.productCost);
+        }
+
+        function getBudget() {
+            return document.getElementById('totalBudget').innerHTML = incomeArray.reduce(getTotal, 0) + expensesArray.reduce(getTotal, 0);
+        }
+    </script>
+
+</body>
+
+</html>
